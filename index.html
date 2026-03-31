@@ -36,7 +36,7 @@
             z-index: 1;
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px 20px;
             min-height: 100vh;
         }
 
@@ -48,22 +48,22 @@
 
         .header {
             text-align: center;
-            padding: 30px 0 20px;
+            padding: 10px 0 8px;
         }
 
         .header-logo {
-            height: 50px;
-            margin-bottom: 10px;
+            height: 30px;
+            margin-bottom: 4px;
         }
 
         .header h1 {
-            font-size: 2.8rem;
+            font-size: 1.6rem;
             font-weight: 900;
             background: linear-gradient(135deg, #fff 0%, #a0d8ef 50%, #fff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
         }
 
         .header .subtitle {
@@ -74,20 +74,95 @@
             text-transform: uppercase;
         }
 
+        .golden-ticket {
+            margin-top: 8px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, rgba(255,215,0,0.12), rgba(180,140,20,0.06));
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            background-clip: padding-box;
+            position: relative;
+            /* 3D metallic gold text */
+            color: transparent;
+            background-image: linear-gradient(
+                180deg,
+                #bf953f 0%,
+                #fcf6ba 25%,
+                #e8d168 35%,
+                #bf953f 50%,
+                #fcf6ba 65%,
+                #e8d168 75%,
+                #bf953f 100%
+            );
+            background-size: 100% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: goldShine 8s ease-in-out infinite;
+            /* 3D depth via text-shadow on a pseudo-element */
+            filter: drop-shadow(0 1px 1px rgba(180,140,20,0.6)) drop-shadow(0 2px 3px rgba(0,0,0,0.4));
+            text-shadow: none;
+        }
+
+        @keyframes goldShine {
+            0%, 100% { background-position: 0% 0%; }
+            50% { background-position: 0% 100%; }
+        }
+
+        .golden-ticket .silver-text {
+            background-image: linear-gradient(
+                180deg,
+                #8e8e8e 0%,
+                #e8e8e8 25%,
+                #c0c0c0 35%,
+                #8e8e8e 50%,
+                #e8e8e8 65%,
+                #c0c0c0 75%,
+                #8e8e8e 100%
+            );
+            background-size: 100% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: goldShine 8s ease-in-out infinite;
+        }
+
+        .golden-ticket::before {
+            content: 'Win a Golden Ticket to Junction 2026 Main Event';
+            position: absolute;
+            top: 8px;
+            left: 20px;
+            right: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(120,90,20,0.5);
+            z-index: -1;
+            transform: translate(0px, 1.5px);
+            -webkit-text-fill-color: rgba(120,90,20,0.5);
+        }
+
         /* Cards */
         .card {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
             backdrop-filter: blur(10px);
         }
 
         .card h2 {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
             color: rgba(255,255,255,0.9);
         }
 
@@ -119,13 +194,13 @@
         }
 
         .btn {
-            padding: 14px 28px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.2s;
@@ -178,41 +253,41 @@
 
         .player-banner {
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 6px;
         }
 
         .player-banner h2 {
-            font-size: 1.5rem;
-            margin-bottom: 4px;
+            font-size: 1.1rem;
+            margin-bottom: 2px;
         }
 
         .player-banner .dart-count {
             color: rgba(255,255,255,0.5);
-            font-size: 0.9rem;
+            font-size: 0.75rem;
         }
 
         .current-score {
             text-align: center;
-            font-size: 3.5rem;
+            font-size: 2.2rem;
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
-            margin: 10px 0 20px;
+            margin: 4px 0 8px;
             color: #fff;
         }
 
         .darts-display {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 24px;
+            gap: 8px;
+            margin-bottom: 10px;
         }
 
         .dart-slot {
-            width: 100px;
-            height: 70px;
+            width: 80px;
+            height: 46px;
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -222,15 +297,15 @@
         }
 
         .dart-slot .dart-label {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: rgba(255,255,255,0.4);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .dart-slot .dart-value {
-            font-size: 1.3rem;
+            font-size: 1rem;
         }
 
         .dart-slot.active {
@@ -245,23 +320,23 @@
 
         /* Score Input Sections */
         .score-section {
-            margin-bottom: 16px;
+            margin-bottom: 6px;
         }
 
         .score-section h3 {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: rgba(255,255,255,0.5);
-            margin-bottom: 10px;
+            margin-bottom: 4px;
             letter-spacing: 2px;
         }
 
         .score-grid {
             display: grid;
-            gap: 6px;
+            gap: 4px;
         }
 
         .score-grid.numbers {
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(10, 1fr);
         }
 
         .score-grid.multipliers {
@@ -269,17 +344,17 @@
         }
 
         .score-grid.special {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
         }
 
         .score-btn {
-            padding: 12px 4px;
+            padding: 8px 2px;
             background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
+            border-radius: 6px;
             color: #fff;
             font-family: 'Lato', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.15s;
             text-align: center;
@@ -328,8 +403,8 @@
 
         .undo-submit-row {
             display: flex;
-            gap: 10px;
-            margin-top: 12px;
+            gap: 8px;
+            margin-top: 6px;
         }
 
         .undo-submit-row .btn {
@@ -339,20 +414,20 @@
         /* Manual score input */
         .manual-input-row {
             display: flex;
-            gap: 10px;
-            margin-top: 12px;
+            gap: 8px;
+            margin-top: 4px;
             align-items: center;
         }
 
         .manual-input-row input {
             flex: 1;
-            padding: 12px 16px;
+            padding: 8px 12px;
             background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 10px;
+            border-radius: 8px;
             color: #fff;
             font-family: 'Lato', sans-serif;
-            font-size: 1rem;
+            font-size: 0.85rem;
             outline: none;
         }
 
@@ -363,11 +438,11 @@
         .or-divider {
             text-align: center;
             color: rgba(255,255,255,0.3);
-            font-size: 0.8rem;
-            margin: 16px 0;
+            font-size: 0.7rem;
+            margin: 6px 0;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .or-divider::before,
@@ -565,6 +640,7 @@
             <img src="junction_logo.png" alt="Junction" class="header-logo" />
             <h1>Darts</h1>
             <div class="subtitle">Leaderboard</div>
+            <div class="golden-ticket"><span class="silver-text">Win a </span>Golden Ticket<span class="silver-text"> to Junction 2026 Main Event</span></div>
         </div>
 
         <!-- Entry Screen -->
@@ -644,13 +720,10 @@
                 <div class="score-section">
                     <h3>Special</h3>
                     <div class="score-grid special">
-                        <button class="score-btn special-btn" onclick="scoreDart('bull25')">25 (Outer Bull)</button>
+                        <button class="score-btn special-btn" onclick="scoreDart('bull25')">25</button>
                         <button class="score-btn special-btn" onclick="scoreDart('bull50')">Bull (50)</button>
+                        <button class="score-btn miss-btn" onclick="scoreDart('miss')">Miss (0)</button>
                     </div>
-                </div>
-
-                <div class="score-section">
-                    <button class="score-btn miss-btn" onclick="scoreDart('miss')" style="width:100%">Miss (0)</button>
                 </div>
 
                 <div class="or-divider">or enter total manually</div>
@@ -675,49 +748,95 @@
         let currentMultiplier = 'single';
 
         const STORAGE_KEY = 'junction_darts_data';
+        const FIREBASE_URL = 'https://junctiondarts-default-rtdb.firebaseio.com';
 
-        // ============ DATA PERSISTENCE ============
-        function loadData() {
+        // ============ FIREBASE SYNC ============
+        let allThrows = []; // master list synced from Firebase
+
+        async function firebasePush(throwData) {
+            try {
+                const res = await fetch(FIREBASE_URL + '/throws.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(throwData)
+                });
+                if (!res.ok) throw new Error('Firebase write failed');
+            } catch (e) {
+                console.error('Firebase push error:', e);
+            }
+        }
+
+        async function firebaseLoadAll() {
+            try {
+                const res = await fetch(FIREBASE_URL + '/throws.json');
+                if (!res.ok) throw new Error('Firebase read failed');
+                const data = await res.json();
+                if (!data) return [];
+                return Object.entries(data).map(([key, val]) => ({ ...val, _fbKey: key }));
+            } catch (e) {
+                console.error('Firebase load error:', e);
+                return [];
+            }
+        }
+
+        async function firebaseClearAll() {
+            try {
+                await fetch(FIREBASE_URL + '/throws.json', { method: 'DELETE' });
+            } catch (e) {
+                console.error('Firebase clear error:', e);
+            }
+        }
+
+        // Poll for updates every 5 seconds
+        function startPolling() {
+            setInterval(async () => {
+                allThrows = await firebaseLoadAll();
+                saveLocalBackup(allThrows);
+                renderLeaderboard();
+                renderHistory();
+            }, 5000);
+        }
+
+        // ============ LOCAL BACKUP ============
+        function saveLocalBackup(throws) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({ throws, version: 1 }));
+                localStorage.setItem(STORAGE_KEY + '_backup', JSON.stringify({ throws, version: 1 }));
+            } catch (e) {
+                console.error('LocalStorage backup failed:', e);
+            }
+        }
+
+        function loadLocalBackup() {
             try {
                 const raw = localStorage.getItem(STORAGE_KEY);
-                if (!raw) return { throws: [], version: 1 };
-                const data = JSON.parse(raw);
-                return data;
+                if (!raw) return [];
+                return JSON.parse(raw).throws || [];
             } catch (e) {
-                console.error('Failed to load data:', e);
-                return { throws: [], version: 1 };
+                return [];
             }
         }
 
-        function saveData(data) {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-                // Also save a backup
-                localStorage.setItem(STORAGE_KEY + '_backup', JSON.stringify(data));
-            } catch (e) {
-                console.error('Failed to save data:', e);
-                alert('Warning: Could not save data to local storage!');
-            }
-        }
-
-        function addThrow(playerName, darts, totalScore) {
-            const data = loadData();
-            data.throws.push({
+        // ============ DATA PERSISTENCE ============
+        async function addThrow(playerName, darts, totalScore) {
+            const throwData = {
                 id: Date.now() + '_' + Math.random().toString(36).substr(2, 6),
                 player: playerName,
-                darts: darts, // [{label, score}]
+                darts: darts,
                 total: totalScore,
                 timestamp: new Date().toISOString()
-            });
-            saveData(data);
+            };
+            // Optimistic: add locally immediately
+            allThrows.push(throwData);
+            saveLocalBackup(allThrows);
+            // Push to Firebase
+            await firebasePush(throwData);
         }
 
         // ============ LEADERBOARD ============
         function getLeaderboard() {
-            const data = loadData();
-            // Best score per player
             const best = {};
-            data.throws.forEach(t => {
+            allThrows.forEach(t => {
                 const name = t.player.toLowerCase().trim();
                 if (!best[name] || t.total > best[name].total) {
                     best[name] = t;
@@ -749,9 +868,8 @@
         }
 
         function renderHistory() {
-            const data = loadData();
             const container = document.getElementById('history-content');
-            const recent = data.throws.slice().reverse().slice(0, 30);
+            const recent = allThrows.slice().reverse().slice(0, 30);
 
             if (recent.length === 0) {
                 container.innerHTML = '<div class="empty-state"><p>No throws recorded yet.</p></div>';
@@ -938,8 +1056,10 @@
             return div.innerHTML;
         }
 
-        function clearData() {
+        async function clearData() {
             if (confirm('Are you sure you want to clear ALL data? This cannot be undone.')) {
+                await firebaseClearAll();
+                allThrows = [];
                 localStorage.removeItem(STORAGE_KEY);
                 localStorage.removeItem(STORAGE_KEY + '_backup');
                 renderLeaderboard();
@@ -948,7 +1068,7 @@
         }
 
         function exportData() {
-            const data = loadData();
+            const data = { throws: allThrows, version: 1 };
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1108,8 +1228,21 @@
 
         // ============ INIT ============
         buildNumberGrid();
+        // Load local backup first for instant display
+        allThrows = loadLocalBackup();
         renderLeaderboard();
         renderHistory();
+        // Then sync from Firebase and start polling
+        (async () => {
+            const remote = await firebaseLoadAll();
+            if (remote.length > 0) {
+                allThrows = remote;
+                saveLocalBackup(allThrows);
+            }
+            renderLeaderboard();
+            renderHistory();
+            startPolling();
+        })();
     </script>
 </body>
 </html>
