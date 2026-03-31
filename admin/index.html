@@ -638,9 +638,19 @@
 <body>
     <canvas id="aurora-canvas"></canvas>
 
-    <div class="app-container">
+        <!-- Admin Login Screen -->
+    <div id="admin-login-screen" style="position: fixed; inset: 0; z-index: 9999; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div class="card" style="width: 320px; text-align: center; padding: 30px;">
+            <h2 style="margin-bottom: 20px;">Admin Access</h2>
+            <input type="text" id="admin-user" placeholder="Username" style="width: 100%; margin-bottom: 15px; padding: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-family: 'Lato', sans-serif;" autocomplete="off" />
+            <input type="password" id="admin-pass" placeholder="Password" style="width: 100%; margin-bottom: 25px; padding: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-family: 'Lato', sans-serif;" />
+            <button class="btn btn-primary" style="width: 100%; padding: 12px;" onclick="checkAdminLogin()">Login</button>
+        </div>
+    </div>
+
+    <div class="app-container" id="main-app" style="display: none;">
         <div class="header">
-            <img src="junction_logo.png" alt="Junction" class="header-logo" />
+            <img src="../junction_logo.png" alt="Junction" class="header-logo" />
             <h1>Darts</h1>
             <div class="subtitle">Leaderboard</div>
             <div class="golden-ticket"><span class="silver-text">Win a </span>Golden Ticket<span class="silver-text"> to Junction 2026 Main Event</span></div>
@@ -674,7 +684,10 @@
                 </div>
             </div>
 
-            <!-- Admin features moved to /admin -->
+            <div class="footer-actions">
+                <button class="btn btn-danger btn-small" onclick="clearData()">Reset All Data</button>
+                <button class="btn btn-secondary btn-small" onclick="exportData()">Export Data</button>
+            </div>
         </div>
 
         <!-- Scoring Screen -->
@@ -779,6 +792,44 @@
             }
         }
 
+        function checkAdminLogin() {
+            if (document.getElementById('admin-user').value === 'junctionadmin' && document.getElementById('admin-pass').value === 'junctionadmin') {
+                document.getElementById('admin-login-screen').style.display = 'none';
+                document.getElementById('main-app').style.display = 'flex';
+                initApp();
+            } else {
+                alert('Invalid credentials');
+            }
+        }
+
+        async function firebaseDeleteRow(key) {
+            try {
+                if(key) await fetch(FIREBASE_URL + '/throws/' + key + '.json', { method: 'DELETE' });
+            } catch (e) {
+                console.error('Firebase row delete error:', e);
+            }
+        }
+
+        async function deleteThrow(id, fbKey) {
+            if (confirm('Are you sure you want to delete this row?')) {
+                // Optimistic local delete
+                allThrows = allThrows.filter(t => t.id !== id);
+                saveLocalBackup(allThrows);
+                renderLeaderboard();
+                renderHistory();
+                // Remote delete
+                if (fbKey && fbKey !== 'undefined') {
+                    await firebaseDeleteRow(fbKey);
+                } else {
+                    allThrows = await firebaseLoadAll();
+                    const target = allThrows.find(t => t.id === id);
+                    if (target && target._fbKey) {
+                        await firebaseDeleteRow(target._fbKey);
+                    }
+                }
+            }
+        }
+
         async function firebaseClearAll() {
             try {
                 await fetch(FIREBASE_URL + '/throws.json', { method: 'DELETE' });
@@ -854,13 +905,14 @@
                 return;
             }
 
-            let html = '<table class="leaderboard-table"><thead><tr><th>#</th><th>Player</th><th>Score</th></tr></thead><tbody>';
+            let html = '<table class="leaderboard-table"><thead><tr><th>#</th><th>Player</th><th>Score</th><th style="text-align:center;">Del</th></tr></thead><tbody>';
             entries.forEach((entry, i) => {
                 const dartsStr = entry.darts.map(d => d.label).join(', ');
                 html += `<tr>
                     <td class="rank">${i + 1}</td>
                     <td><div class="player-name-cell"><span>${escapeHtml(entry.player)}</span><span class="player-darts">${escapeHtml(dartsStr)}</span></div></td>
                     <td>${entry.total}</td>
+                    <td style="text-align:center;"><button class="btn btn-danger btn-small" style="padding:4px 8px; font-size:0.65rem;" onclick="deleteThrow('${entry.id}', '${entry._fbKey}')">X</button></td>
                 </tr>`;
             });
             html += '</tbody></table>';
@@ -886,7 +938,10 @@
                         <div class="history-darts">${escapeHtml(dartsStr)}</div>
                         <div class="history-time">${time}</div>
                     </div>
-                    <div class="history-score">${t.total}</div>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div class="history-score">${t.total}</div>
+                        <button class="btn btn-danger btn-small" style="padding:4px 8px; font-size:0.65rem;" onclick="deleteThrow('${t.id}', '${t._fbKey}')">X</button>
+                    </div>
                 </div>`;
             });
             container.innerHTML = html;
@@ -1227,22 +1282,24 @@
         })();
 
         // ============ INIT ============
-        buildNumberGrid();
-        // Load local backup first for instant display
-        allThrows = loadLocalBackup();
-        renderLeaderboard();
-        renderHistory();
-        // Then sync from Firebase and start polling
-        (async () => {
-            const remote = await firebaseLoadAll();
-            if (remote.length > 0) {
-                allThrows = remote;
-                saveLocalBackup(allThrows);
-            }
+        function initApp() {
+            buildNumberGrid();
+            // Load local backup first for instant display
+            allThrows = loadLocalBackup();
             renderLeaderboard();
             renderHistory();
-            startPolling();
-        })();
+            // Then sync from Firebase and start polling
+            (async () => {
+                const remote = await firebaseLoadAll();
+                if (remote.length > 0) {
+                    allThrows = remote;
+                    saveLocalBackup(allThrows);
+                }
+                renderLeaderboard();
+                renderHistory();
+                startPolling();
+            })();
+        }
     </script>
 </body>
 </html>
